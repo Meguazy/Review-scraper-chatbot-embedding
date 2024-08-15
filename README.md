@@ -15,8 +15,10 @@ After the docker container has been created, you can install the virtual environ
 pipenv install
 ```
 
-**IMPORTANT**
+# **IMPORTANT**
+
 Open the consumer and the producer in two different terminals, so you can switch between them and see messages being produced and consumed.
+
 Start the consumer by using
 ```
 pipenv run python -m consumer
