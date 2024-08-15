@@ -5,6 +5,8 @@ In order to install and use the project you need to have installed the following
 - docker
 - docker-compose
 
+### Installing docker and dependecies
+
 Position yourself in the googlescraper directory and run the command
 ```
 docker-compose up
@@ -15,10 +17,11 @@ After the docker container has been created, you can install the virtual environ
 pipenv install
 ```
 
-# **IMPORTANT**
+### IMPORTANT
 
 Open the consumer and the producer in two different terminals, so you can switch between them and see messages being produced and consumed.
 
+### Starting consumer and producer
 Start the consumer by using
 ```
 pipenv run python -m consumer
