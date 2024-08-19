@@ -1,7 +1,7 @@
 # googleScraper
 
 In order to install and use the project you need to have installed the followings:
-- python 3.8 or above
+- python 3.10 or above
 - docker
 - docker-compose
 
