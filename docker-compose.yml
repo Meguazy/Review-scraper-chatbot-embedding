@@ -28,13 +28,18 @@ services:
     depends_on:
       - zookeeper
 
-  chromadb:
-    restart: always
-    image: chromadb/chromadb:latest
+  vectordb:
+    # image: ghcr.io/chroma-core/chroma:0.5.2  # Image tag: https://github.com/chroma-core/chroma/releases
+    # image: ghcr.io/chroma-core/chroma:0.5.3
+    build: ./
+    container_name: chroma_docker
     ports:
-      - "8000:8000"
+      - 8800:8000
+    env_file:
+      - ./.env
     volumes:
-      - "chromadb-volume:/data"
+      - ./chroma_configs/my_db:/chroma/my_db
+      #- ./my_config:/chroma/my_config
 
   elasticsearch:
     restart: always
@@ -62,3 +67,4 @@ volumes:
   zookeeper-volume:
   chromadb-volume:
   elasticsearch-volume:
+  
