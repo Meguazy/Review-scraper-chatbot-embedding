@@ -28,13 +28,13 @@ services:
     depends_on:
       - zookeeper
 
-  mongodb-atlas:
+  chromadb:
     restart: always
-    image: mongodb/mongodb-atlas-local:latest
+    image: chromadb/chromadb:latest
     ports:
-      - "27017:27017"
+      - "8000:8000"
     volumes:
-      - "mongodb-atlas-volume:/data/db"
+      - "chromadb-volume:/data"
 
   elasticsearch:
     restart: always
@@ -60,5 +60,5 @@ services:
 volumes:
   kafka-volume:
   zookeeper-volume:
-  mongodb-atlas-volume:
+  chromadb-volume:
   elasticsearch-volume:
