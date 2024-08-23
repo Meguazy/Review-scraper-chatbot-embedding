@@ -28,26 +28,13 @@ services:
     depends_on:
       - zookeeper
 
-  mysql:
+  mongodb-atlas:
     restart: always
-    image: mysql:8.0
-    environment:
-      MYSQL_ROOT_PASSWORD: example
-      MYSQL_DATABASE: mydb
-      MYSQL_USER: user
-      MYSQL_PASSWORD: password
-    ports:
-      - "3306:3306"
-    volumes:
-      - "mysql-volume:/var/lib/mysql"
-
-  mongo:
-    restart: always
-    image: mongo:6.0
+    image: mongodb/mongodb-atlas-local:latest
     ports:
       - "27017:27017"
     volumes:
-      - "mongo-volume:/data/db"
+      - "mongodb-atlas-volume:/data/db"
 
   elasticsearch:
     restart: always
@@ -73,6 +60,5 @@ services:
 volumes:
   kafka-volume:
   zookeeper-volume:
-  mysql-volume:
-  mongo-volume:
+  mongodb-atlas-volume:
   elasticsearch-volume:
