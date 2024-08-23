@@ -1,8 +1,4 @@
 from kafka import KafkaProducer
-from datetime import datetime
-import json
-import time
-import logging
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service as ChromeService
 from webdriver_manager.chrome import ChromeDriverManager
@@ -11,19 +7,18 @@ from selenium.common.exceptions import NoSuchElementException, InvalidArgumentEx
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import TimeoutException
+from codeKafka.utils import send_to_consumer
 
+import logging
 
 # Setup logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-producer = KafkaProducer(
-    bootstrap_servers=['localhost:9093'],  # Ensure Kafka is running on this address
-    value_serializer=lambda v: json.dumps(v).encode('utf-8')
-)
-
 class IndeedScraper():
-    def __init__(self):
+    def __init__(self, producer: KafkaProducer):
+        self.producer = producer
+
         option = webdriver.ChromeOptions()
         #option.add_argument("--headless")  # Run in headless mode for efficiency
         option.add_argument("--no-sandbox")
@@ -69,7 +64,7 @@ class IndeedScraper():
                         'review_body': review_body,
                         'review_score': review_score
                     }
-                    send_to_consumer('reviews', review_dict)
+                    send_to_consumer('reviews', review_dict, self.producer, logger)
 
         except TimeoutException:
             logger.error("Timed out waiting for the element to be present")
@@ -79,28 +74,3 @@ class IndeedScraper():
             logger.error(f"Invalid URL argument: {e}")
         finally:
             self.driver.quit()  # Ensure the browser closes after scraping
-
-
-def send_to_consumer(topic_name: str, data: dict):
-    try:
-        producer.send(topic_name, data)
-        producer.flush()
-        logger.info(f"Sent data to Kafka topic '{topic_name}': {data}")
-    except Exception as e:
-        logger.error(f"Failed to send data to Kafka: {e}")
-
-def main():
-    scraper = IndeedScraper()
-
-    try:
-        while True:
-            url = input("Enter the URL to scrape: ")
-            scraper.scrape_and_publish(url)
-    except KeyboardInterrupt:
-        logger.info("Scraper interrupted by user")
-    finally:
-        producer.close()  # Close Kafka producer on exit
-        logger.info("Kafka producer closed")
-
-if __name__ == "__main__":
-    main()
