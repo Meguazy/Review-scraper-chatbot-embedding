@@ -40,15 +40,15 @@ class TextEmbedder:
         embeddings = self.embedding_model.encode(text)
         return embeddings
 
-    def add_to_db(self, text):
-        """
-        Adds the text embedding to the ChromaDB collection.
-        """
-        embeddings = self.embed(text)
-        self.collection.add(
-            documents=[text],
-            embeddings=[embeddings]
-        )
+    # def add_to_db(self, text):
+    #     """
+    #     Adds the text embedding to the ChromaDB collection.
+    #     """
+    #     embeddings = self.embed(text)
+    #     self.collection.add(
+    #         documents=[text],
+    #         embeddings=[embeddings]
+    #     )
     
     def query_db(self, query_text):
         """
