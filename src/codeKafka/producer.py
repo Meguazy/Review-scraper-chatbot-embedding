@@ -1,10 +1,8 @@
 from kafka import KafkaProducer
-from datetime import datetime
 
 from scraper.IndeedScraper import IndeedScraper
 
 import json
-import time
 import logging
 
 # Setup logging
