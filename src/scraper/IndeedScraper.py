@@ -80,9 +80,11 @@ class IndeedScraper():
                         'review_body': review_body,
                         'review_score': review_score
                     }
-                    
-                    if detect(review_dict['review_body']) == 'it':
-                        send_to_consumer('reviews', review_dict, self.producer, logger)
+                    try:                     
+                        if detect(review_dict['review_body']) == 'it':
+                            send_to_consumer('reviews', review_dict, self.producer, logger)                                
+                    except LangDetectException as e:
+                        logger.error(f"Error while detecting language: {e}")
 
         except TimeoutException:
             logger.error("Timed out waiting for the element to be present")
@@ -90,7 +92,5 @@ class IndeedScraper():
             logger.error(f"Element not found: {e}")
         except InvalidArgumentException as e:
             logger.error(f"Invalid URL argument: {e}")
-        except LangDetectException as e:
-            logger.error(f"Error while detecting language: {e}")
         finally:
             driver.quit()  # Ensure the browser closes after scraping
