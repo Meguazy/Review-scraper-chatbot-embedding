@@ -136,3 +136,7 @@ websockets==13.0
 wrapt==1.16.0; python_version >= '3.6'
 wsproto==1.2.0; python_full_version >= '3.7.0'
 zipp==3.20.0; python_version >= '3.8'
+
+chromadb~=0.5.5
+selenium~=4.23.1
+elasticsearch~=8.15.0
