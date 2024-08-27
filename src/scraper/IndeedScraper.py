@@ -1,4 +1,4 @@
-from langdetect import detect, DetectorFactory
+from langdetect import detect, DetectorFactory, LangDetectException
 from kafka import KafkaProducer
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service as ChromeService
@@ -80,9 +80,11 @@ class IndeedScraper():
                         'review_body': review_body,
                         'review_score': review_score
                     }
-                    
-                    if detect(review_dict['review_body']) == 'it':
-                        send_to_consumer('reviews', review_dict, self.producer, logger)
+                    try:                     
+                        if detect(review_dict['review_body']) == 'it':
+                            send_to_consumer('reviews', review_dict, self.producer, logger)                                
+                    except LangDetectException as e:
+                        logger.error(f"Error while detecting language: {e}")
 
         except TimeoutException:
             logger.error("Timed out waiting for the element to be present")

@@ -3,14 +3,15 @@ import chromadb
 from chromadb.config import Settings
 import spacy
 
+
 class TextEmbedder:
     def __init__(self, model_name='sentence-transformers/multi-qa-MiniLM-L6-cos-v1'):
         """
         Initialize the TextEmbedder with a specified model.
         """
         self.embedding_model = SentenceTransformer(model_name)
-        #self.client = chromadb.Client(Settings())
-        #self.collection = self.client.create_collection(name="text_embeddings")
+        # self.client = chromadb.Client(Settings())
+        # self.collection = self.client.create_collection(name="text_embeddings")
 
         # Load the Italian language model
         self.nlp = spacy.load("it_core_news_sm")
@@ -27,10 +28,10 @@ class TextEmbedder:
         """
         # Process the text with spaCy
         doc = self.nlp(text)
-        
+
         # Extract sentences from the processed text
         sentences = [sent.text.strip() for sent in doc.sents]
-        
+
         return sentences
 
     def embed(self, text):
@@ -49,7 +50,7 @@ class TextEmbedder:
     #         documents=[text],
     #         embeddings=[embeddings]
     #     )
-    
+
     def query_db(self, query_text):
         """
         Queries the ChromaDB collection using the embedding of the query text.
@@ -61,14 +62,15 @@ class TextEmbedder:
         )
         return results
 
+
 # Example usage
 if __name__ == "__main__":
     text_embedder = TextEmbedder()
     text = "Questa è una frase di esempio in italiano."
-    
+
     # Add the text to the ChromaDB collection
     text_embedder.add_to_db(text)
-    
+
     # Query the ChromaDB collection
     results = text_embedder.query_db(text)
     print("Query Results:", results)
