@@ -1,5 +1,5 @@
 from elasticsearch import Elasticsearch
-from src.dao.IDao import IDao
+from dao.IDao import IDao
 
 
 class ElasticDao(IDao):
@@ -7,7 +7,7 @@ class ElasticDao(IDao):
         """
         Inizializza la connessione a Elasticsearch e specifica l'indice da usare.
         """
-        self.es = Elasticsearch()
+        self.es = Elasticsearch(cloud_id="")
         self.index_name = index_name
 
     def save(self, document, id=None):

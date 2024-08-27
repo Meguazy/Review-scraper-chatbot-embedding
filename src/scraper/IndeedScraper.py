@@ -1,4 +1,4 @@
-from langdetect import detect, DetectorFactory
+from langdetect import detect, DetectorFactory, LangDetectException
 from kafka import KafkaProducer
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service as ChromeService
@@ -90,5 +90,7 @@ class IndeedScraper():
             logger.error(f"Element not found: {e}")
         except InvalidArgumentException as e:
             logger.error(f"Invalid URL argument: {e}")
+        except LangDetectException as e:
+            logger.error(f"Error while detecting language: {e}")
         finally:
             driver.quit()  # Ensure the browser closes after scraping

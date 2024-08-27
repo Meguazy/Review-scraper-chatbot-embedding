@@ -1,6 +1,6 @@
 from kafka import KafkaConsumer
-from src.embedding.embedder import TextEmbedder
-from src.dao.EmbeddingDao import EmbeddingDao  # Assicurati che il percorso sia corretto
+from embedding.embedder import TextEmbedder
+from dao.EmbeddingDao import EmbeddingDao  # Assicurati che il percorso sia corretto
 import json
 
 # Inizializza KafkaConsumer

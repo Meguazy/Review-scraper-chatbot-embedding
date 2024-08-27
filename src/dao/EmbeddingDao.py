@@ -1,6 +1,6 @@
 import chromadb
 from chromadb.config import Settings
-from src.dao.IDao import IDao
+from dao.IDao import IDao
 
 
 class EmbeddingDao(IDao):
