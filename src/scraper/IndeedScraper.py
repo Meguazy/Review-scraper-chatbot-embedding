@@ -43,7 +43,7 @@ class IndeedScraper():
 
     def scrape_and_publish(self, url):
         driver = self.initialize_driver()
-        url_to_format = url + "reviews/?fcountry=ALL&lang=it&start={}"
+        url_to_format = url + "reviews/?fcountry=IT&lang=it&start={}"
 
         try:
             driver.get(url_to_format.format(0))
@@ -61,33 +61,33 @@ class IndeedScraper():
 
                 # Optionally scroll to load more content
                 #driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+                try:
+                    reviews = WebDriverWait(driver, 20).until(
+                        EC.presence_of_all_elements_located((By.CSS_SELECTOR, "div.css-lw17hn.eu4oa1w0"))
+                    )
 
-                reviews = WebDriverWait(driver, 20).until(
-                    EC.presence_of_all_elements_located((By.CSS_SELECTOR, "div.css-lw17hn.eu4oa1w0"))
-                )
+                    bottom_range = 0 if i == 0 else 1
 
-                bottom_range = 0 if i == 0 else 1
+                    for j in range(bottom_range, len(reviews)):
+                        review = reviews[j]
+                        review_title = review.find_element(By.CSS_SELECTOR, "h2.css-rv2ti0.e1tiznh50 span.css-15r9gu1.eu4oa1w0").text
+                        review_body = review.find_element(By.CSS_SELECTOR, "div.css-hxk5yu.eu4oa1w0").text
+                        review_score = review.find_element(By.CSS_SELECTOR, "button.css-szf5tt.e1wnkr790").text
 
-                for j in range(bottom_range, len(reviews)):
-                    review = reviews[j]
-                    review_title = review.find_element(By.CSS_SELECTOR, "h2.css-rv2ti0.e1tiznh50 span.css-15r9gu1.eu4oa1w0").text
-                    review_body = review.find_element(By.CSS_SELECTOR, "div.css-hxk5yu.eu4oa1w0").text
-                    review_score = review.find_element(By.CSS_SELECTOR, "button.css-szf5tt.e1wnkr790").text
+                        review_dict = {
+                            'company_name': str(url).split('/')[-2],
+                            'review_title': review_title,
+                            'review_body': review_body,
+                            'review_score': review_score
+                        }
+                        try:                     
+                            if detect(review_dict['review_body']) == 'it':
+                                send_to_consumer('reviews', review_dict, self.producer, logger)                                
+                        except LangDetectException as e:
+                            logger.error(f"Error while detecting language: {e}")
 
-                    review_dict = {
-                        'company_name': str(url).split('/')[-2],
-                        'review_title': review_title,
-                        'review_body': review_body,
-                        'review_score': review_score
-                    }
-                    try:                     
-                        if detect(review_dict['review_body']) == 'it':
-                            send_to_consumer('reviews', review_dict, self.producer, logger)                                
-                    except LangDetectException as e:
-                        logger.error(f"Error while detecting language: {e}")
-
-        except TimeoutException:
-            logger.error("Timed out waiting for the element to be present")
+                except TimeoutException:
+                    logger.error("Timed out waiting for the element to be present")
         except NoSuchElementException as e:
             logger.error(f"Element not found: {e}")
         except InvalidArgumentException as e:

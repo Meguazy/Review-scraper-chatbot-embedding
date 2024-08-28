@@ -1,14 +1,13 @@
 from dao.EmbeddingDao import EmbeddingDao
-from embedding.T5ItalianGenerator import ItalianTextGenerator
-from GPTItalianGenerator import Falcon7BInstructModel
+from huggingface_hub import InferenceClient
 from embedding.embedder import TextEmbedder
-
 
 textEmbedder = TextEmbedder()
 embedding_dao = EmbeddingDao()
-italian_generator = Falcon7BInstructModel()
 collection = embedding_dao.get_or_create_collection("reviews")
 
+API_KEY = """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"""
+client = InferenceClient(token=API_KEY)
 
 if __name__ == "__main__":
     while True:        
@@ -16,7 +15,7 @@ if __name__ == "__main__":
         query_text = input("Enter your query: ")
         company_name = input("Enter company name to filter by (or press Enter to skip): ")
 
-        results = textEmbedder.query_db(query_text, collection, company_name=company_name, n_results=2)
+        results = textEmbedder.query_db(query_text, collection, company_name=company_name, n_results=5)
 
         # Print results
         cleaned_reviews = None
@@ -29,13 +28,10 @@ if __name__ == "__main__":
         joined_reviews = "\n".join([f"- Recensione {i+1}: \"{review}\"" for i, review in enumerate(cleaned_reviews)])
         
         # Construct the prompt with context
-        prompt = f"Recensioni dell'azienda:\n{joined_reviews}\nDomanda: Considerando le recensioni, {query_text} Rispondi in modo dettagliato."
-
+        prompt = f"Recensioni dell'azienda chiamata Fastweb:\n{joined_reviews}\nLa domanda è: {query_text} \n rispondi in modo dettagliato, tenendo conto delle recensioni. La tua risposta deve essere di massimo 50 parole, non ignorare questa istruzione."
         print("-------------PROMPT VALUE-------------")
-        print(f"Prompt:\n {prompt}")
-        # Generate the response
-        response = italian_generator.generate_answer(prompt)
-        print("-------------RESPONSE VALUE-------------")
-        print(f"Response: {response}")
+        print(f"{prompt}")
 
-
+        result = client.text_generation(prompt, model="mistralai/Mistral-Nemo-Instruct-2407", return_full_text=False)
+        print("-------------Response for the text generation model-------------")
+        print(f"{result}")
