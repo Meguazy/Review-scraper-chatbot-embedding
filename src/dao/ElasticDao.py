@@ -1,13 +1,15 @@
 from elasticsearch import Elasticsearch
 from dao.IDao import IDao
 
-
 class ElasticDao(IDao):
     def __init__(self, index_name="raw_data"):
         """
         Inizializza la connessione a Elasticsearch e specifica l'indice da usare.
         """
-        self.es = Elasticsearch(cloud_id="")
+        # Connessione a Elasticsearch in esecuzione su localhost sulla porta 9200
+        self.es = Elasticsearch(
+            hosts=["http://localhost:9200"]
+        )
         self.index_name = index_name
 
     def save(self, document, id=None):
@@ -18,7 +20,8 @@ class ElasticDao(IDao):
         - document (dict): Il documento da salvare.
         - id (str, optional): L'ID del documento. Se non specificato, Elasticsearch genererà un ID univoco.
         """
-        self.es.index(index=self.index_name, id=id, document=document)
+        response = self.es.index(index=self.index_name, id=id, document=document)
+        print(f"Document indexed. ID: {response['_id']}")
 
     def query(self, query, size=10):
         """
