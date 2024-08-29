@@ -37,7 +37,7 @@ if __name__ == "__main__":
         reviews = clean_reviews(query_results)
         
         # Construct the prompt with context
-        prompt = generator.build_prompt(query_text, context=reviews, type="long")
+        prompt = generator.build_prompt(query_text, context=reviews, type="short", company_name=company_name)
         print("-------------PROMPT VALUE-------------")
         print(f"{prompt}")
 
