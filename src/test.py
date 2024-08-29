@@ -22,7 +22,10 @@ def clean_reviews(query_results):
     """
     Cleans the reviews from the query results.
     """
-    cleaned_reviews = [item.replace('\n', ' ') for item in query_results["documents"][0]]
+    cleaned_reviews = None
+    for result in query_results['documents']:
+        # Remove newline characters from each review
+        cleaned_reviews = [item.replace('\n', ' ') for item in result]
     joined_reviews = "\n".join([f"- Recensione {i+1}: \"{review}\"" for i, review in enumerate(cleaned_reviews)])
     return joined_reviews
 
@@ -31,7 +34,8 @@ if __name__ == "__main__":
         # Query the collection
         query_text = input("Enter your query: ")
         company_name = input("Enter company name to filter by (or press Enter to skip): ")
-        query_results = textEmbedder.query_db(query_text, collection, company_name=company_name, n_results=5)
+        n_results = int(input("Enter the number of results: "))
+        query_results = textEmbedder.query_db(query_text, collection, company_name=company_name, n_results=n_results)
 
         # Join the cleaned reviews into a single string with enumeration and newline characters
         reviews = clean_reviews(query_results)
