@@ -9,8 +9,6 @@ class TextEmbedder:
         """
         self.embedding_model = SentenceTransformer(model_name)
         self.embedding_dao = EmbeddingDao()
-        # self.client = chromadb.Client(Settings())
-        # self.collection = self.client.create_collection(name="text_embeddings")
 
     def embed(self, text):
         """
