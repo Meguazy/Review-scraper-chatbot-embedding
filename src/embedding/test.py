@@ -18,6 +18,14 @@ generator = TextGenerator(model_name="mistralai/Mistral-Nemo-Instruct-2407", api
 # Get or create the collection
 collection = embedding_dao.get_or_create_collection("reviews")
 
+def clean_reviews(query_results):
+    """
+    Cleans the reviews from the query results.
+    """
+    cleaned_reviews = [item.replace('\n', ' ') for item in query_results["documents"][0]]
+    joined_reviews = "\n".join([f"- Recensione {i+1}: \"{review}\"" for i, review in enumerate(cleaned_reviews)])
+    return joined_reviews
+
 if __name__ == "__main__":
     while True:
         # Query the collection
@@ -26,11 +34,10 @@ if __name__ == "__main__":
         query_results = textEmbedder.query_db(query_text, collection, company_name=company_name, n_results=5)
 
         # Join the cleaned reviews into a single string with enumeration and newline characters
-        cleaned_reviews = [item.replace('\n', ' ') for item in query_results["documents"][0]]
-        joined_reviews = "\n".join([f"- Recensione {i+1}: \"{review}\"" for i, review in enumerate(cleaned_reviews)])
+        reviews = clean_reviews(query_results)
         
         # Construct the prompt with context
-        prompt = generator.build_prompt(query_text, context=joined_reviews, type="long")
+        prompt = generator.build_prompt(query_text, context=reviews, type="long")
         print("-------------PROMPT VALUE-------------")
         print(f"{prompt}")
 
