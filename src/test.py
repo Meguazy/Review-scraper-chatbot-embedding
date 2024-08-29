@@ -2,7 +2,7 @@ import os
 
 from dao.EmbeddingDao import EmbeddingDao
 from embedding.embedder import TextEmbedder
-from text_generation import TextGenerator
+from embedding.text_generation import TextGenerator
 
 # Retrieve the secret key from the environment
 API_KEY = os.environ.get('API_KEY')
