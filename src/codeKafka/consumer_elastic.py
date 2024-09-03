@@ -1,5 +1,6 @@
 from kafka import KafkaConsumer
 from dao.ElasticDao import ElasticDao
+from dao.SentimentAnalyzer import SentimentAnalyzer
 import json
 
 # Inizializza KafkaConsumer
@@ -12,9 +13,20 @@ consumer = KafkaConsumer(
 # Inizializza il DAO per Elasticsearch
 elastic_dao = ElasticDao()
 
+# Inizializza il SentimentAnalyzer
+sentiment_analyzer = SentimentAnalyzer()
+
 # Loop per processare i messaggi
 for message in consumer:
-    print(message.value)
+    document = message.value
 
-    # Salva il messaggio raw in Elasticsearch
-    elastic_dao.save(document=message.value, id=message.value.get('id'))
+    # Estrai il corpo della recensione
+    review_body = document.get('review_body', '')
+
+    if review_body:
+        # Analizza il sentiment della recensione
+        sentiment = sentiment_analyzer.analyze_sentiment(review_body)
+        document['sentiment'] = sentiment  # Aggiungi il risultato al documento
+
+    # Salva il documento in Elasticsearch, includendo il sentiment
+    elastic_dao.save(document=document, id=document.get('id'))

@@ -1,16 +1,15 @@
 from elasticsearch import Elasticsearch
 from dao.IDao import IDao
 
+
 class ElasticDao(IDao):
-    def __init__(self, index_name="raw_data"):
+    def __init__(self):
         """
         Inizializza la connessione a Elasticsearch e specifica l'indice da usare.
         """
         # Connessione a Elasticsearch in esecuzione su localhost sulla porta 9200
-        self.es = Elasticsearch(
-            hosts=["http://localhost:9200"]
-        )
-        self.index_name = index_name
+        self.es = Elasticsearch(hosts=["http://localhost:9200"])
+        self.index_name = input("Inserisci il nome dell'indice da utilizzare: ")
 
     def save(self, document, id=None):
         """
