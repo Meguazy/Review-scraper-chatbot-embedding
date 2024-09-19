@@ -1,6 +1,8 @@
+from datetime import datetime
 from kafka import KafkaConsumer
 from embedding.embedder import TextEmbedder
 from dao.EmbeddingDao import EmbeddingDao  # Assicurati che il percorso sia corretto
+from utils import generate_id_from_text
 import json
 
 # Inizializza KafkaConsumer
@@ -14,32 +16,31 @@ consumer = KafkaConsumer(
 textEmbedder = TextEmbedder()
 embedding_dao = EmbeddingDao()
 
+# Get the collection for the embeddings
+collection = embedding_dao.get_or_create_collection("reviews")
+
+counter = 0
 # Loop per processare i messaggi
 for message in consumer:
-    print("-------------MESSAGE VALUE-------------")
-    print(message.value["review_body"])
+    unique_id = generate_id_from_text(message.value["review_body"])
+    
+    # Generate embedding for the review body
+    embedding = textEmbedder.embed(message.value["review_body"])
 
-    # Tokenizza la recensione
-    tokens = textEmbedder.tokenize_sentence(message.value["review_body"])
-    embeddings = []
-    for token in tokens:
-        print("-------------TOKENIZATION VALUE-------------")
-        print(token)
+    metadata = {
+        'company_name' : message.value.get('company_name', 'unknown'),
+        'review_title' : message.value.get('review_title', 'unknown'),
+        'review_score' : message.value.get('review_score', 'unknown'),
+        'ins_timestamp': datetime.now().isoformat()
+    }
+    print(metadata)
 
-        # Genera embedding per ogni token
-        embedding = textEmbedder.embed(token)
-        embeddings.append(embedding)
-
-        print("-------------EMBEDDING VALUE-------------")
-        print(embedding)
-
-    # Salva i token e gli embedding nel database (ChromaDB)
-    metadatas = [{"source": message.value.get("company_name", "unknown")} for _ in tokens]
-    ids = [f"{message.value.get('company_name', 'unknown')}-{i}" for i in range(len(tokens))]
-
+    # Save the token and embedding in the database (ChromaDB)
     embedding_dao.save(
-        documents=tokens,
-        embeddings=embeddings,
-        metadatas=metadatas,
-        ids=ids
+        documents=[message.value["review_body"]],
+        embeddings=[embedding],
+        collection=collection,
+        metadatas=[metadata],
+        ids=[unique_id]
     )
+

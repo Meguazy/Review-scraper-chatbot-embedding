@@ -1,4 +1,6 @@
 import chromadb
+
+from chromadb import Collection
 from chromadb.config import Settings
 from dao.IDao import IDao
 
@@ -8,7 +10,9 @@ class EmbeddingDao(IDao):
         """
         Inizializza la connessione a ChromaDB.
         """
-        self.client = chromadb.Client(Settings())
+        # Connect with no authentication
+        self.client = chromadb.HttpClient(host='localhost', port=8800,)
+
 
     def get_or_create_collection(self, collection_name):
         """
@@ -26,7 +30,7 @@ class EmbeddingDao(IDao):
         else:
             return self.client.create_collection(name=collection_name)
 
-    def save(self, documents, embeddings, collection_name="text_embeddings", metadatas=None, ids=None):
+    def save(self, documents, embeddings, collection: Collection, metadatas=None, ids=None):
         """
         Salva i documenti e gli embedding nella collezione specificata.
 
@@ -37,10 +41,9 @@ class EmbeddingDao(IDao):
         - metadatas (list of dict, optional): Lista di dizionari con metadati per ogni documento.
         - ids (list of str, optional): Lista di ID univoci per ogni documento.
         """
-        collection = self.get_or_create_collection(collection_name)
         collection.add(documents=documents, embeddings=embeddings, metadatas=metadatas, ids=ids)
 
-    def query(self, query_texts, collection_name="text_embeddings", n_results=10, where=None, where_document=None):
+    def query(self, query_embeddings: list, collection: Collection, n_results=10, where=None, where_document=None):
         """
         Esegue una query nel VectorDB per trovare i documenti più simili nella collezione specificata.
 
@@ -54,9 +57,8 @@ class EmbeddingDao(IDao):
         Returns:
         - results: I risultati della query, contenenti i documenti più simili.
         """
-        collection = self.get_or_create_collection(collection_name)
         results = collection.query(
-            query_texts=query_texts,
+            query_embeddings=query_embeddings,
             n_results=n_results,
             where=where,
             where_document=where_document
