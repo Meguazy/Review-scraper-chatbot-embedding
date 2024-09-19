@@ -14,7 +14,7 @@ from codeKafka.utils import send_to_consumer
 import logging
 
 # Setup logging
-logging.basicConfig(level=logging.INFO)
+logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger(__name__)
 
 class IndeedScraper():
@@ -32,27 +32,29 @@ class IndeedScraper():
         option.add_argument("window-size=1920x1080")  # Set the window size
         option.add_argument("--remote-debugging-port=9222")  # Optional: Enable debugging
         option.add_argument("user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3")
-
+        logger.debug("Initializing WebDriver") 
         try:
             driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()), options=option)
         except WebDriverException as e:
             logger.error(f"Error initializing WebDriver: {e}")
             raise
-
+        logger.debug("WebDriver initialized")
         return driver
 
     def scrape_and_publish(self, url):
         driver = self.initialize_driver()
         url_to_format = url + "reviews/?fcountry=IT&lang=it&start={}"
-
+        logger.debug(f"URL to format: {url_to_format}")
         try:
             driver.get(url_to_format.format(0))
             # Getting the number of reviews
             # Wait for the element to be present
-            tot_reviews = WebDriverWait(driver, 10).until(
-                EC.presence_of_element_located((By.CSS_SELECTOR, "div.css-104u4ae.eu4oa1w0"))
+            logger.debug("Waiting for the element to be present")
+            # Wait and find the element
+            tot_reviews = WebDriverWait(driver, 30).until(
+                EC.visibility_of_element_located((By.CSS_SELECTOR, "div[data-testid='review-count'] span.css-fwx2p2.e1wnkr790 b"))
             ).text
-
+            logger.debug(f"Total reviews: {tot_reviews}")
             num_tot_reviews = int(float(str(tot_reviews).replace("K", "")) * 1000) if "K" in tot_reviews else int(tot_reviews)
 
             for i in range(0, num_tot_reviews, 20):
@@ -62,10 +64,11 @@ class IndeedScraper():
                 # Optionally scroll to load more content
                 #driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
                 try:
-                    reviews = WebDriverWait(driver, 20).until(
-                        EC.presence_of_all_elements_located((By.CSS_SELECTOR, "div.css-lw17hn.eu4oa1w0"))
+                    # Wait for all review elements within the reviewsList container to be present
+                    reviews = WebDriverWait(driver, 30).until(
+                        EC.presence_of_all_elements_located((By.CSS_SELECTOR, "div[data-testid='reviewsList'] div.css-lw17hn.eu4oa1w0"))
                     )
-
+                    logger.debug(f"Found {len(reviews)} reviews")
                     bottom_range = 0 if i == 0 else 1
 
                     for j in range(bottom_range, len(reviews)):

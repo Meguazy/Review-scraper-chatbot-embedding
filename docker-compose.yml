@@ -62,9 +62,90 @@ services:
     depends_on:
       - elasticsearch
 
+  # namenode:
+  #   image: bde2020/hadoop-namenode:2.0.0-hadoop2.7.4-java8
+  #   container_name: namenode
+  #   volumes:
+  #     - hadoop_namenode:/hadoop/dfs/name
+  #     - ./temp:/tmp/temp
+  #   environment:
+  #     - CLUSTER_NAME=test
+  #   env_file:
+  #     - ./hadoop.env
+  #   ports:
+  #     - 50070:50070
+
+  # datanode:
+  #   image: bde2020/hadoop-datanode:2.0.0-hadoop2.7.4-java8
+  #   container_name: datanode
+  #   volumes:
+  #     - hadoop_datanode:/hadoop/dfs/data
+  #   environment:
+  #     SERVICE_PRECONDITION: "namenode:50070"
+  #   env_file:
+  #     - ./hadoop.env
+  #   ports:
+  #     - 50075:50075
+
+  # datanode2:
+  #   image: bde2020/hadoop-datanode:2.0.0-hadoop2.7.4-java8
+  #   container_name: datanode2
+  #   volumes:
+  #     - hadoop_datanode2:/hadoop/dfs/data
+  #   environment:
+  #     SERVICE_PRECONDITION: "namenode:50070"
+  #   env_file:
+  #     - ./hadoop.env
+  #   ports:
+  #     - 50076:50075
+
+  # datanode3:
+  #   image: bde2020/hadoop-datanode:2.0.0-hadoop2.7.4-java8
+  #   container_name: datanode3
+  #   volumes:
+  #     - hadoop_datanode3:/hadoop/dfs/data
+  #   environment:
+  #     SERVICE_PRECONDITION: "namenode:50070"
+  #   env_file:
+  #     - ./hadoop.env
+  #   ports:
+  #     - 50077:50075
+
+  # resourcemanager:
+  #   image: bde2020/hadoop-resourcemanager:2.0.0-hadoop2.7.4-java8
+  #   container_name: resourcemanager
+  #   environment:
+  #     SERVICE_PRECONDITION: "namenode:50070 datanode:50075"
+  #   env_file:
+  #     - ./hadoop.env
+  #   ports:
+  #     - 8088:8088
+
+  # nodemanager1:
+  #   image: bde2020/hadoop-nodemanager:2.0.0-hadoop2.7.4-java8
+  #   container_name: nodemanager
+  #   environment:
+  #     SERVICE_PRECONDITION: "namenode:50070 datanode:50075 resourcemanager:8088"
+  #   env_file:
+  #     - ./hadoop.env
+
+  # historyserver:
+  #   image: bde2020/hadoop-historyserver:2.0.0-hadoop2.7.4-java8
+  #   container_name: historyserver
+  #   volumes:
+  #     - hadoop_historyserver:/hadoop/yarn/timeline
+  #   environment:
+  #     SERVICE_PRECONDITION: "namenode:50070 datanode:50075 resourcemanager:8088"
+  #   env_file:
+  #     - ./hadoop.env
+
 volumes:
   kafka-volume:
   zookeeper-volume:
   chromadb-volume:
   elasticsearch-volume:
-  
+  # hadoop_namenode:
+  # hadoop_datanode:
+  # hadoop_datanode2:
+  # hadoop_datanode3:
+  # hadoop_historyserver:
