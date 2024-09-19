@@ -34,13 +34,13 @@ reviews_df = reviews_df.selectExpr(
 )
 
 # Define HDFS configuration
-hdfs_path = "hdfs://namenode:50070/path/to/output/dir"
+hdfs_path = "hdfs://namenode:50070/persist_raw"
 
 # Write data to HDFS
 query = reviews_df.writeStream \
     .format("parquet") \
     .option("path", hdfs_path) \
-    .option("checkpointLocation", "/path/to/checkpoint/dir") \
+    .option("checkpointLocation", "./checkpoint_kafka") \
     .outputMode("append") \
     .start()
 
