@@ -1,9 +1,11 @@
-from datetime import datetime
-from kafka import KafkaConsumer
-from embedding.embedder import TextEmbedder
-from dao.EmbeddingDao import EmbeddingDao  # Assicurati che il percorso sia corretto
-from utils import generate_id_from_text
 import json
+
+from dao.EmbeddingDao import EmbeddingDao
+from datetime import datetime
+from embedding.embedder import TextEmbedder
+from kafka import KafkaConsumer
+
+from utils import generate_id_from_text
 
 # Inizializza KafkaConsumer
 consumer = KafkaConsumer(
@@ -18,7 +20,7 @@ embedding_dao = EmbeddingDao()
 
 # Get the collection for the embeddings
 collection = embedding_dao.get_or_create_collection("reviews")
-
+logger.debug(f"Starting consumer embedding loop")
 counter = 0
 # Loop per processare i messaggi
 for message in consumer:
