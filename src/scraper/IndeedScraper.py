@@ -14,7 +14,7 @@ from codeKafka.utils import send_to_consumer
 import logging
 
 # Setup logging
-logging.basicConfig(level=logging.DEBUG)
+logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 class IndeedScraper():
