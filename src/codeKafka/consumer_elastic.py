@@ -6,7 +6,7 @@ import json
 # Inizializza KafkaConsumer
 consumer = KafkaConsumer(
     'reviews',
-    bootstrap_servers=['localhost:9093'],
+    bootstrap_servers=['kafka:9093'],
     value_deserializer=lambda m: json.loads(m.decode('utf-8'))
 )
 

@@ -11,7 +11,7 @@ class EmbeddingDao(IDao):
         Inizializza la connessione a ChromaDB.
         """
         # Connect with no authentication
-        self.client = chromadb.HttpClient(host='localhost', port=8800,)
+        self.client = chromadb.HttpClient(host='vectordb', port=8000)
 
 
     def get_or_create_collection(self, collection_name):
