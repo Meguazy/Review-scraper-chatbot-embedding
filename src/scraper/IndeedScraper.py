@@ -25,7 +25,9 @@ class IndeedScraper():
         
     def initialize_driver(self):
         option = webdriver.ChromeOptions()
-        #option.add_argument("--headless")  # Run in headless mode
+        option.add_argument('--ignore-ssl-errors=yes')
+        option.add_argument('--ignore-certificate-errors')
+        option.add_argument("--headless")  # Run in headless mode
         option.add_argument("--no-sandbox")
         option.add_argument("--disable-dev-shm-usage")
         option.add_argument("--disable-gpu")  # Disable GPU acceleration
@@ -34,7 +36,11 @@ class IndeedScraper():
         option.add_argument("user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3")
         logger.debug("Initializing WebDriver") 
         try:
-            driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()), options=option)
+            #driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()), options=option)
+            driver = webdriver.Remote(
+                command_executor='http://selenium-chrome:4444/wd/hub',
+                options=option
+            )
         except WebDriverException as e:
             logger.error(f"Error initializing WebDriver: {e}")
             raise
@@ -46,7 +52,8 @@ class IndeedScraper():
         url_to_format = url + "reviews/?fcountry=IT&lang=it&start={}"
         logger.debug(f"URL to format: {url_to_format}")
         try:
-            driver.get(url_to_format.format(0))
+            driver.get(url_to_format.format(0))            
+            print("Python" in driver.title)
             # Getting the number of reviews
             # Wait for the element to be present
             logger.debug("Waiting for the element to be present")

@@ -17,7 +17,7 @@ HUGGINFACE_API_KEY = os.environ.get('HUGGINFACE_API_KEY')
 
 # Initialize the Kafka producer
 producer = KafkaProducer(
-    bootstrap_servers=['kafka:9093'],  # Ensure Kafka is running on this address
+    bootstrap_servers=['host.docker.internal:9093'],  # Ensure Kafka is running on this address
     value_serializer=lambda v: json.dumps(v).encode('utf-8')
 )
 

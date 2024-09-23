@@ -41,7 +41,7 @@ def compute_embedding(review_body):
 df = spark \
   .readStream \
   .format("kafka") \
-  .option("kafka.bootstrap.servers", "kafka:9093") \
+  .option("kafka.bootstrap.servers", "host.docker.internal:9093") \
   .option("subscribe", "reviews") \
   .option("startingOffsets", "earliest") \
   .load()

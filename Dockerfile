@@ -1,11 +1,12 @@
 # Image reference: https://github.com/chroma-core/chroma/releases
 FROM ghcr.io/chroma-core/chroma:latest
 
-# Install dependencies, including procps
-RUN apt-get update && apt-get install -y procps && apt-get clean
+RUN apt-get update && \
+    apt-get install -y procps openjdk-17-jdk-headless && \
+    apt-get clean
 
-# Set JAVA_HOME (adjust the path if necessary)
-ENV JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64
+# Set JAVA_HOME
+ENV JAVA_HOME=/usr/lib/jvm/java-17-openjdk-arm64
 ENV PATH="${JAVA_HOME}/bin:${PATH}"
 
 COPY requirements.txt .

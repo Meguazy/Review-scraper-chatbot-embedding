@@ -9,6 +9,11 @@ services:
       - "zookeeper-volume:/bitnami"
     environment:
       - ALLOW_ANONYMOUS_LOGIN=yes
+    healthcheck:
+      test: ["CMD", "echo", "ruok"]
+      interval: 5s
+      timeout: 2s
+      retries: 3
 
   kafka:
     restart: always
@@ -19,14 +24,24 @@ services:
       - "kafka-volume:/bitnami"
     environment:
       - KAFKA_BROKER_ID=1
-      - KAFKA_CFG_ZOOKEEPER_CONNECT=zookeeper:2181
+      - KAFKA_ZOOKEEPER_CONNECT=zookeeper:2181
       - ALLOW_PLAINTEXT_LISTENER=yes
-      - KAFKA_CFG_LISTENER_SECURITY_PROTOCOL_MAP=CLIENT:PLAINTEXT,EXTERNAL:PLAINTEXT
-      - KAFKA_CFG_LISTENERS=CLIENT://:9092,EXTERNAL://:9093
-      - KAFKA_CFG_ADVERTISED_LISTENERS=CLIENT://kafka:9092,EXTERNAL://localhost:9093
-      - KAFKA_CFG_INTER_BROKER_LISTENER_NAME=CLIENT
+      - KAFKA_LISTENER_SECURITY_PROTOCOL_MAP=CLIENT:PLAINTEXT,EXTERNAL:PLAINTEXT
+      - KAFKA_LISTENERS=CLIENT://:9092,EXTERNAL://:9093
+      - KAFKA_ADVERTISED_LISTENERS=CLIENT://kafka:9092,EXTERNAL://host.docker.internal:9093
+      - KAFKA_INTER_BROKER_LISTENER_NAME=CLIENT
     depends_on:
-      - zookeeper
+      zookeeper:
+        condition: service_healthy
+
+  selenium-chrome:
+    image: seleniarm/standalone-chromium  # ARM-compatible image
+    container_name: selenium-chrome
+    ports:
+      - "4444:4444"
+    volumes:
+      - /dev/shm:/dev/shm
+    restart: always
 
   vectordb:
     # image: ghcr.io/chroma-core/chroma:0.5.2  # Image tag: https://github.com/chroma-core/chroma/releases
@@ -34,10 +49,10 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    command: uvicorn chromadb.app:app --workers 1 --host 0.0.0.0 --port 8000 --proxy-headers --timeout-keep-alive 30 
+    command: uvicorn chromadb.app:app --workers 1 --host 0.0.0.0 --port 8800 --proxy-headers --timeout-keep-alive 30 
     container_name: chroma_docker
     ports:
-      - 8800:8000
+      - 8800:8800
     env_file:
       - ./.env
     volumes:
@@ -72,18 +87,25 @@ services:
     ports:
       - "8501:8501"
     working_dir: /app/src  # Ensure you're in the correct directory
+    depends_on:
+      - kafka
+      - vectordb
 
   submit_service:
     build:
       context: .
     command: ["bash", "submit.sh"]
     working_dir: /app/src
+    depends_on:
+      - kafka
 
   consumer_service:
     build:
       context: .
     command: ["python", "codeKafka/consumer_elastic.py"]
     working_dir: /app/src
+    depends_on:
+      - kafka
 
 volumes:
   kafka-volume:
