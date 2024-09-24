@@ -74,3 +74,14 @@ Elastic (Elasticsearch) is a distributed, RESTful search engine designed for lar
 
 Large Language Models (LLMs) are AI models designed to understand and generate human language. With advancements in deep learning and transformer architectures, LLMs such as GPT-3, BERT, and others have demonstrated impressive capabilities in tasks like text generation, summarization, translation, and more. LLMs are integral to many NLP applications, helping businesses automate processes, build chatbots, enhance search engines, and create personalized user experiences through natural language understanding.
 
+## Prerequisites(#prerequisites)
+The prerequisites are:
+- Python 3.12.4
+- Docker and docker-compose
+- Git (to clone this repo)
+- JDK 17 (to start the spark application)
+
+To download Python 3.12.4 you can follow the guide in the [python 3.12.4 installation page](https://www.python.org/downloads/release/python-3124/) and choose the correct version according to your system.
+To download Docker you can follow the guide in the [docker installation page](https://www.docker.com/products/docker-desktop/) and choose the correct version according to your system.
+To download Git you can follow the guide in the [git installation page](https://git-scm.com/downloads) and choose the correct version according to your system.
+To download and install the JDK 17 you can follow the guide in the [JDK 17 installation page](https://docs.oracle.com/en/java/javase/17/install/overview-jdk-installation.html) and choose the correct version according to your system.
