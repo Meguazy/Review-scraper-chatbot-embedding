@@ -1,3 +1,5 @@
+zip -r dependencies.zip embedding/ dao/ scraper/ codeKafka/
+
 spark-submit \
   --master local[*] \
   --deploy-mode client \
