@@ -116,6 +116,7 @@ Then we need to move inside the 'src/' folder and set the PYTHONPATH
 cd src/
 export PYTHONPATH=$(pwd) 
 ```
+**IMPORTANT**: those first two steps must be repeated every time you open a new terminal.
 
 Before taking a look at the scraper, we first need to start the two consumers. To do this, we must open two different terminals in order to be able to interact with them. In the first terminal, run the commands 
 ```bash
@@ -126,9 +127,9 @@ while in the second terminal, run the command
 ```bash
 python codeKafka/consumer_elastic.py
 ```
-In the first terminal we will start the consumer that writes the data on the vector database, while in the second terminal we will interact with the one that writes on ElasitSearch indexes.
+In the **first terminal** we will start the consumer that writes the data on the vector database, while in the **second terminal** we will interact with the one that writes on ElasitSearch indexes.
 
-To start the scraper and the chatbot app, we need to start the streamlit webapp by using the command
+To start the scraper and the chatbot app, we need to start the streamlit webapp **on yet another terminal** by using the command
 ```bash
 streamlit run app.py
 ```
