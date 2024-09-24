@@ -9,7 +9,32 @@ class ElasticDao(IDao):
         """
         # Connessione a Elasticsearch in esecuzione su localhost sulla porta 9200
         self.es = Elasticsearch(hosts=["http://localhost:9200"])
-        self.index_name = input("Inserisci il nome dell'indice da utilizzare: ")
+        self.index_name = "all_data"
+        self.create_index()
+
+    def create_index(self):
+        """
+        Crea un nuovo indice in Elasticsearch se non esiste già.
+        """
+        # Definisci il mapping
+        mapping = {
+            "mappings": {
+                "properties": {
+                    "company_name": {"type": "keyword"},
+                    "review_title": {"type": "text"},
+                    "review_body": {"type": "text"},
+                    "review_score": {"type": "float"},
+                    "sentiment": {"type": "keyword"}
+                }
+            }
+        }
+
+        # Crea l'indice se non esiste già
+        if not self.es.indices.exists(index=self.index_name):
+            self.es.indices.create(index=self.index_name, body=mapping)
+            print(f"Indice '{self.index_name}' creato con successo.")
+        else:
+            print(f"L'indice '{self.index_name}' esiste già.")
 
     def save(self, document, id=None):
         """
@@ -35,3 +60,7 @@ class ElasticDao(IDao):
         """
         results = self.es.search(index=self.index_name, query=query, size=size)
         return results
+
+
+if __name__ == "__main__":
+    dao = ElasticDao()
