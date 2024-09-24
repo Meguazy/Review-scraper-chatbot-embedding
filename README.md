@@ -6,7 +6,7 @@ This repo contain the project code for the course "Technologies for Big Data Man
 1. [Introduction](#introduction)
 1. [Technologies](#technologies)
     1. [Docker](#docker)
-    1. [Kafka](#kafka)
+    1. [Apache Kafka](#kafka)
     1. [Apache Spark](#spark)
     1. [ChromaDB](#chromadb)
     1. [Elastic and Kibana](#elastic)
@@ -105,3 +105,34 @@ docker-compose up -d
 This will create and build the pre-defined virtual environment. This environment will handle every service by itself, without needing the user to manually setup anything. Everything is already handled and pre-defined inside the Dockerfile, docker-compose.yaml, .env file and chroma_configs/ directory.
 
 ## [Usage](#usage)
+To use the program, first move into the virtual environment shell
+```bash
+pipenv shell
+```
+This will open the virtual environment so that we can use all of the dependencies that we've previously installed.
+
+Then we need to move inside the 'src/' folder and set the PYTHONPATH
+```bash
+cd src/
+export PYTHONPATH=$(pwd) 
+```
+
+Before taking a look at the scraper, we first need to start the two consumers. To do this, we must open two different terminals in order to be able to interact with them. In the first terminal, run the commands 
+```bash
+chmod +x codeKafka/submit.sh
+bash codeKafka/submit.sh
+```
+while in the second terminal, run the command
+```bash
+python codeKafka/consumer_elastic.py
+```
+In the first terminal we will start the consumer that writes the data on the vector database, while in the second terminal we will interact with the one that writes on ElasitSearch indexes.
+
+To start the scraper and the chatbot app, we need to start the streamlit webapp by using the command
+```bash
+streamlit run app.py
+```
+By going on the [streamlit main page](http://localhost:8501), the app will present itself like this
+<p align="left">
+  <img src="logos/kafka-logo.png" alt="App example" title="App" width="150" height="150">
+</p>
