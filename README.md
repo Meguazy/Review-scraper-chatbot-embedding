@@ -62,14 +62,14 @@ ChromaDB is a vector database designed to handle high-dimensional data such as e
 
 ### [Elastic and Kibana](#elastic)
 <p align="center">
-  <img src="llm-logo.jpg" alt="Elastic Logo" title="Elastic" width="150" height="150">
+  <img src="logos/elastic-logo.png" alt="Elastic Logo" title="Elastic" width="150" height="150">
 </p>
 
 Elastic (Elasticsearch) is a distributed, RESTful search engine designed for large volumes of data, such as logs or metrics. It is commonly used for full-text search, analytics, and monitoring. Elasticsearch is part of the Elastic Stack, which includes Kibana for visualizing search results and managing queries. Together, Elastic and Kibana provide a comprehensive solution for real-time search and analytics across datasets, making them popular in log analysis, infrastructure monitoring, and business analytics use cases.
 
 ### [LLMs](#llm)
 <p align="center">
-  <img src="PLACEHOLDER_FOR_LLM_IMAGE" alt="LLM Representation" title="LLM" width="150" height="150">
+  <img src="logos/llm-logo.jpg" alt="LLM Representation" title="LLM" width="150" height="150">
 </p>
 
 Large Language Models (LLMs) are AI models designed to understand and generate human language. With advancements in deep learning and transformer architectures, LLMs such as GPT-3, BERT, and others have demonstrated impressive capabilities in tasks like text generation, summarization, translation, and more. LLMs are integral to many NLP applications, helping businesses automate processes, build chatbots, enhance search engines, and create personalized user experiences through natural language understanding.
