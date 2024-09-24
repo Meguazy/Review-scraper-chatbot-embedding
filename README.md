@@ -4,15 +4,15 @@ This repo contain the project code for the course "Technologies for Big Data Man
 
 ### Table of Contents:
 1. [Introduction](#introduction)
-1. [Technologies](#technologies)  
-1. [Prerequisites](#prerequisites)
-1. [Installation & Configuration](#installation-and-configuration)  
+1. [Technologies](#technologies)
     1. [Docker](#docker)
     1. [Kafka](#kafka)
     1. [Apache Spark](#spark)
     1. [ChromaDB](#chromadb)
     1. [Elastic and Kibana](#elastic)
     1. [LLMs](#llm)
+1. [Prerequisites](#prerequisites)
+1. [Installation & Configuration](#installation-and-configuration)  
 1. [Usage](#usage)  
     1. [IoT Simulator](#iot-simulator-1)
     1. [MQTT Dumper](#mqtt-dumper-1)
@@ -82,6 +82,9 @@ The prerequisites are:
 - JDK 17 (to start the spark application)
 
 To download Python 3.12.4 you can follow the guide in the [python 3.12.4 installation page](https://www.python.org/downloads/release/python-3124/) and choose the correct version according to your system.
+
 To download Docker you can follow the guide in the [docker installation page](https://www.docker.com/products/docker-desktop/) and choose the correct version according to your system.
+
 To download Git you can follow the guide in the [git installation page](https://git-scm.com/downloads) and choose the correct version according to your system.
+
 To download and install the JDK 17 you can follow the guide in the [JDK 17 installation page](https://docs.oracle.com/en/java/javase/17/install/overview-jdk-installation.html) and choose the correct version according to your system.
