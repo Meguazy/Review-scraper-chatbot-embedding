@@ -25,7 +25,7 @@ producer = KafkaProducer(
 )
 
 # Initialize the objects
-textEmbedder = TextEmbedder(model_name="sentence-transformers/multi-qa-MiniLM-L6-cos-v1")
+textEmbedder = TextEmbedder()
 textEmbedder.load_model()
 
 embedding_dao = EmbeddingDao()
