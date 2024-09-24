@@ -26,11 +26,11 @@ This repo contain the project code for the course "Technologies for Big Data Man
 1. [License](#license)
 1. [Contact Information](#contact-information) 
 
-## Introduction
+## [Introduction](#introduction)
 The scope of this project is to dynamically scrape reviews from Indeed in order to embed them in the context of a chatbot. This chatbot will then communicate with the user and it will be able to answer questions about said company. For example, a user might be interested in the salary level of a certain company but maybe doesn't want to read thousands of reviews to find that out. This project aims to find a solution just to that.
 The application scrapes data from the web, then embeds it into a vector database in order for them to be used later when the user asks a question.
 
-## Technologies
+## [Technologies](#technologies)
 
 ### [Docker](#docker)
 <p align="center">
@@ -74,7 +74,7 @@ Elastic (Elasticsearch) is a distributed, RESTful search engine designed for lar
 
 Large Language Models (LLMs) are AI models designed to understand and generate human language. With advancements in deep learning and transformer architectures, LLMs such as GPT-3, BERT, and others have demonstrated impressive capabilities in tasks like text generation, summarization, translation, and more. LLMs are integral to many NLP applications, helping businesses automate processes, build chatbots, enhance search engines, and create personalized user experiences through natural language understanding.
 
-## Prerequisites(#prerequisites)
+## [Prerequisites](#prerequisites)
 The prerequisites are:
 - Python 3.12.4
 - Docker and docker-compose
@@ -88,3 +88,20 @@ To download Docker you can follow the guide in the [docker installation page](ht
 To download Git you can follow the guide in the [git installation page](https://git-scm.com/downloads) and choose the correct version according to your system.
 
 To download and install the JDK 17 you can follow the guide in the [JDK 17 installation page](https://docs.oracle.com/en/java/javase/17/install/overview-jdk-installation.html) and choose the correct version according to your system.
+
+## [Installation & Configuration](#installation-and-configuration)
+Once the prerequisites are correctly installed, we can go on to setup the environments in order to run the project.
+
+First thing first, we need to install the python dependecies. We suggest to use a virtual environment like pipenv. To install the dependencies you have to run the command
+```bash
+pipenv install -r requirements.txt
+```
+this allows you to install all of the Python 3.12.4's dependencies with a single command.
+
+Once the python requirements are installed, you can create the docker container. First, position yourself in the root directory of the project. Then, run the command 
+```bash
+docker-compose up -d
+```
+This will create and build the pre-defined virtual environment. This environment will handle every service by itself, without needing the user to manually setup anything. Everything is already handled and pre-defined inside the Dockerfile, docker-compose.yaml, .env file and chroma_configs/ directory.
+
+## [Usage](#usage)
