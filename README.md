@@ -1,45 +1,34 @@
-# googleScraper
+#Indeed scraping for chatbot interaction
 
-In order to install and use the project you need to have installed the followings:
-- python 3.10 or above
-- docker
-- docker-compose
+This repo contain the project code for the course "Technologies for Big Data Management" held by professor Massimo Callisto at the university of Camerino. 
 
-### Installing docker and dependecies
+### Table of Contents:
+1. [Introduction](#introduction)
+1. [Technologies](#technologies)  
+1. [Prerequisites](#prerequisites)
+1. [Installation & Configuration](#installation-and-configuration)  
+    1. [Kafka](#kafka)
+    1. [MQTT Dumper](#mqtt-dumper)
+    1. [Kakfa Stream](#kafkastream-1)
+    1. [MongoDB](#mongodb-1)
+    1. [MongoDB Sink Connector](#mongodb-sink-connector)
+    1. [Presto](#presto)
+1. [Usage](#usage)  
+    1. [IoT Simulator](#iot-simulator-1)
+    1. [MQTT Dumper](#mqtt-dumper-1)
+    1. [Kafka Stream](#kafkastream-2)
+    1. [Presto](#presto-1)
+    1. [Jupyter Connection](#jupyter-1)
+1. [Results](#results)  
+    1. [Line Chart](#linechart-1)
+    1. [Bar Chart](#barchart-1)
+    1. [Pie Chart](#piechart-1)
+1. [License](#license)
+1. [Contact Information](#contact-information) 
 
-Position yourself in the googlescraper directory and run the command
-```
-docker-compose up
-```
+## Introduction
+The scope of this project is to dynamically scrape reviews from Indeed in order to embed them in the context of a chatbot. This chatbot will then communicate with the user and it will be able to answer questions about said company. For example, a user might be interested in the salary level of a certain company but maybe doesn't want to read thousands of reviews to find that out. This project aims to find a solution just to that.
+The application scrapes data from the web, then embeds it into a vector database in order for them to be used later when the user asks a question.
 
-After the docker container has been created, you can install the virtual environment. I suggest using 'pipenv'. The following command should install all the dependencies of the pipfile and pipfile.lock
-```
-pipenv install
-```
-
-### IMPORTANT
-
-Open the consumer and the producer in two different terminals, so you can switch between them and see messages being produced and consumed.
-
-### Starting consumer and producer
-Start the consumer by using
-```
-pipenv run python -m consumer
-```
-then, start the producer
-```
-pipenv run python -m producer
-```
-
-Once the producer is started it will ask you to insert the URL to scrape. The format of the URL is:
-```
-https://www.indeed.com/cmp/{company-name}/
-```
-For example
-```
-https://www.indeed.com/cmp/Sync-Lab/
-```
-or
-```
-https://www.indeed.com/cmp/Google/
-```
+## Technologies
+For this project we used different technologies.
