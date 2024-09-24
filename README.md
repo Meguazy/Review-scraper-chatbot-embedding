@@ -134,5 +134,5 @@ streamlit run app.py
 ```
 By going on the [streamlit main page](http://localhost:8501), the app will present itself like this
 <p align="left">
-  <img src="logos/app_main.png" alt="App example" title="App" width="150" height="150">
+  <img src="logos/app_main.png" alt="App example" title="App">
 </p>
