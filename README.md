@@ -137,4 +137,9 @@ In the first section you can enter a link to scrape, like the one given by examp
 1. The name of the company must match the one present in the Indeed link. For example, if we want to scrape Poste Italiane and the company name in the link is "Poste-Italiane" we must put that inside of the field;
 2. The number of results should be chosen carefully. More results do not automatically mean a better chatbot response. For example, if a company has 20 reviews and we choose 10 results for the query we will probably get reviews that have nothing in common with the question we've asked. This happens because the sample of reviews isn't big enough. On the other hand, if a company has thousands of review putting a number that is too low could exclude some important context from the question. Also keep in mind that chatbots do not perform well with prompts that are too complex and lengthy.
 
+The following is an example of how to use the chatbot:
+<p align="left">
+  <img src="logos/chatbot-usage.png" alt="App example" title="App" height=500>
+</p>
+
 Finally, the user can access the indexes with Elastic and Kibana and create dashboard to analyze the data by accessing the [kibana main page](http://localhost:5601). 
