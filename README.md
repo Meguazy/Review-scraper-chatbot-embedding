@@ -14,11 +14,6 @@ This repo contain the project code for the course "Technologies for Big Data Man
 1. [Prerequisites](#prerequisites)
 1. [Installation & Configuration](#installation-and-configuration)  
 1. [Usage](#usage)  
-    1. [IoT Simulator](#iot-simulator-1)
-    1. [MQTT Dumper](#mqtt-dumper-1)
-    1. [Kafka Stream](#kafkastream-2)
-    1. [Presto](#presto-1)
-    1. [Jupyter Connection](#jupyter-1)
 1. [Results](#results)  
     1. [Line Chart](#linechart-1)
     1. [Bar Chart](#barchart-1)
@@ -127,7 +122,7 @@ while in the second terminal, run the command
 ```bash
 python codeKafka/consumer_elastic.py
 ```
-In the **first terminal** we will start the consumer that writes the data on the vector database, while in the **second terminal** we will interact with the one that writes on ElasitSearch indexes.
+In the **first terminal** we will start the consumer that writes the data on the vector database, while in the **second terminal** we will interact with the one that writes on the ElasitSearch indexes.
 
 To start the scraper and the chatbot app, we need to start the streamlit webapp **on yet another terminal** by using the command
 ```bash
@@ -141,3 +136,5 @@ In the first section you can enter a link to scrape, like the one given by examp
 
 1. The name of the company must match the one present in the Indeed link. For example, if we want to scrape Poste Italiane and the company name in the link is "Poste-Italiane" we must put that inside of the field;
 2. The number of results should be chosen carefully. More results do not automatically mean a better chatbot response. For example, if a company has 20 reviews and we choose 10 results for the query we will probably get reviews that have nothing in common with the question we've asked. This happens because the sample of reviews isn't big enough. On the other hand, if a company has thousands of review putting a number that is too low could exclude some important context from the question. Also keep in mind that chatbots do not perform well with prompts that are too complex and lengthy.
+
+Finally, the user can access the indexes with Elastic and Kibana and create dashboard to analyze the data by accessing the [kibana main page](http://localhost:5601). 
