@@ -34,35 +34,35 @@ The application scrapes data from the web, then embeds it into a vector database
 
 ### [Docker](#docker)
 <p align="center">
-  <img src="PLACEHOLDER_FOR_DOCKER_IMAGE" alt="Docker Logo" title="Docker" width="150" height="150">
+  <img src="logos/docker-logo.png" alt="Docker Logo" title="Docker" width="150" height="150">
 </p>
 
 Docker is a platform designed to help developers build, package, and deploy applications in containers. Containers allow applications to be portable and consistent across different environments by encapsulating them with all their dependencies. Docker containers provide lightweight virtualization, improving development workflows and infrastructure consistency. It simplifies the setup and scaling of environments, especially in CI/CD pipelines and microservices architectures. Docker is widely used to manage the lifecycle of applications and improve deployment efficiency.
 
 ### [Apache Kafka](#kafka)
 <p align="center">
-  <img src="PLACEHOLDER_FOR_KAFKA_IMAGE" alt="Kafka Logo" title="Kafka" width="150" height="150">
+  <img src="logos/kafka-logo.png" alt="Kafka Logo" title="Kafka" width="150" height="150">
 </p>
 
 Apache Kafka is a publish-subscribe messaging solution designed for real-time data streaming and distributed pipelines. It excels at high-performance data integration, streaming analytics, and data feed replaying. Kafka servers store data streams as records within a cluster, ensuring durability and scalability. Kafka’s Streams API allows developers to process, filter, and aggregate real-time data streams to build sophisticated streaming applications. Its versatility has made it essential for building real-time applications in various industries.
 
 ### [Apache Spark](#spark)
 <p align="center">
-  <img src="PLACEHOLDER_FOR_SPARK_IMAGE" alt="Spark Logo" title="Apache Spark" width="150" height="150">
+  <img src="logos/spark-logo.png" alt="Spark Logo" title="Apache Spark" width="150" height="150">
 </p>
 
 Apache Spark is a powerful distributed processing engine that handles large-scale data processing across clusters in real-time and batch modes. With its in-memory computing capabilities, Spark delivers high-speed processing of big data. It integrates well with various data storage solutions such as HDFS, Cassandra, and S3, and provides APIs for different programming languages, including Python, Java, and Scala. Apache Spark’s structured streaming and machine learning libraries make it a popular choice for processing big data in real time and advanced analytics.
 
 ### [ChromaDB](#chromadb)
 <p align="center">
-  <img src="PLACEHOLDER_FOR_CHROMADB_IMAGE" alt="ChromaDB Logo" title="ChromaDB" width="150" height="150">
+  <img src="logos/chroma-logo.png" alt="ChromaDB Logo" title="ChromaDB" width="150" height="150">
 </p>
 
 ChromaDB is a vector database designed to handle high-dimensional data such as embeddings used in AI applications. It supports operations such as searching, clustering, and organizing vectorized data efficiently. As machine learning models and LLMs often produce large volumes of embedded data, ChromaDB provides a scalable solution to store and query this data in real-time. Its efficient handling of embeddings makes it a core component of many AI-based workflows.
 
 ### [Elastic and Kibana](#elastic)
 <p align="center">
-  <img src="PLACEHOLDER_FOR_ELASTIC_IMAGE" alt="Elastic Logo" title="Elastic" width="150" height="150">
+  <img src="llm-logo.jpg" alt="Elastic Logo" title="Elastic" width="150" height="150">
 </p>
 
 Elastic (Elasticsearch) is a distributed, RESTful search engine designed for large volumes of data, such as logs or metrics. It is commonly used for full-text search, analytics, and monitoring. Elasticsearch is part of the Elastic Stack, which includes Kibana for visualizing search results and managing queries. Together, Elastic and Kibana provide a comprehensive solution for real-time search and analytics across datasets, making them popular in log analysis, infrastructure monitoring, and business analytics use cases.
