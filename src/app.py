@@ -1,4 +1,5 @@
 import streamlit as st
+import dotenv
 import os
 import json
 import logging
@@ -7,6 +8,8 @@ from scraper.IndeedScraper import IndeedScraper
 from dao.EmbeddingDao import EmbeddingDao
 from embedding.embedder import TextEmbedder
 from embedding.text_generation import TextGenerator
+
+dotenv.load_dotenv(dotenv_path="../.env")
 
 # Setup logging
 logging.basicConfig(level=logging.INFO)
@@ -22,7 +25,9 @@ producer = KafkaProducer(
 )
 
 # Initialize the objects
-textEmbedder = TextEmbedder()
+textEmbedder = TextEmbedder(model_name="sentence-transformers/multi-qa-MiniLM-L6-cos-v1")
+textEmbedder.load_model()
+
 embedding_dao = EmbeddingDao()
 generator = TextGenerator(model_name="mistralai/Mistral-Nemo-Instruct-2407", api_key=HUGGINFACE_API_KEY)
 
@@ -77,6 +82,7 @@ if chatbot_button:
     if query_input:
         with st.spinner('Processing your query...'):
             try:
+                print(HUGGINFACE_API_KEY)
                 # Query the collection
                 query_results = textEmbedder.query_db(query_input, collection, company_name=company_name_input, n_results=n_results_input)
 

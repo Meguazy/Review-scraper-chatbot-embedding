@@ -12,7 +12,7 @@ class TextEmbedder:
             cls._instance.embedding_dao = EmbeddingDao()
         return cls._instance
 
-    def load_model(self, model_name='sentence-transformers/multi-qa-MiniLM-L6-cos-v1'):
+    def load_model(self, model_name):
         if self.embedding_model is None:
             self.embedding_model = SentenceTransformer(model_name)
 

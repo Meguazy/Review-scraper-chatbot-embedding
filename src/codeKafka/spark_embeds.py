@@ -27,7 +27,7 @@ spark.sparkContext.setLogLevel("ERROR")
 
 # Factory function to create an instance of TextEmbedder
 def get_text_embedder():
-    text_embedder = TextEmbedder()
+    text_embedder = TextEmbedder(model_name="sentence-transformers/multi-qa-MiniLM-L6-cos-v1")
     text_embedder.load_model()
     return text_embedder
 

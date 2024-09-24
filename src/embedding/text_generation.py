@@ -2,11 +2,12 @@ from huggingface_hub import InferenceClient
 
 class TextGenerator:
     def __init__(self, model_name, api_key = ""):
+        print("API KEY: ", api_key)
         self.client = InferenceClient(token=api_key)
         self.model_name = model_name
 
     def text_generation(self, prompt):
-        result = self.client.text_generation(prompt, model="mistralai/Mistral-Nemo-Instruct-2407", return_full_text=False, max_new_tokens=1000)
+        result = self.client.text_generation(prompt, model=self.model_name, return_full_text=False, max_new_tokens=1000)
         return result
     
     def build_prompt(self, query_text, company_name, context = None, type="long"):
