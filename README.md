@@ -87,7 +87,13 @@ To download and install the JDK 17 you can follow the guide in the [JDK 17 insta
 ## [Installation & Configuration](#installation-and-configuration)
 Once the prerequisites are correctly installed, we can go on to setup the environments in order to run the project.
 
-First thing first, we need to install the python dependecies. We suggest to use a virtual environment like pipenv. To install the dependencies you have to run the command
+First thing first, we must clone the repo and move into the root folder
+```bash
+git clone https://github.com/Meguazy/Review-scraper-chatbot-embedding.git
+cd Review-scraper-chatbot-embedding/
+```
+
+We can now install the python dependecies. We suggest to use a virtual environment like pipenv. To install the dependencies you have to run the command
 ```bash
 pipenv install -r requirements.txt
 ```
