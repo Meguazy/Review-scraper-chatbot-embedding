@@ -1,6 +1,6 @@
 # Indeed scraping for chatbot interaction
 
-This repo contain the project code for the course "Technologies for Big Data Management" held by professor Massimo Callisto at the university of Camerino. 
+This repo contain the project code for the course "Technologies for Big Data Management" held by professor [Massimo Callisto](https://github.com/massimocallisto) at the university of Camerino. 
 
 ### Table of Contents:
 1. [Introduction](#introduction)
