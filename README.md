@@ -14,10 +14,10 @@ This repo contain the project code for the course "Technologies for Big Data Man
 1. [Prerequisites](#prerequisites)
 1. [Installation & Configuration](#installation-and-configuration)  
 1. [Usage](#usage)  
-1. [Results](#results)  
-    1. [Line Chart](#linechart-1)
-    1. [Bar Chart](#barchart-1)
-    1. [Pie Chart](#piechart-1)
+1. [Results](#results)
+    1. [Chatbot Response](#chatbotResponse)
+    1. [Sentiment Analysis](#sentiment)
+    1. [Word Cloud](#wordCloud)
 1. [License](#license)
 1. [Contact Information](#contact-information) 
 
@@ -143,3 +143,38 @@ The following is an example of how to use the chatbot:
 </p>
 
 Finally, the user can access the indexes with Elastic and Kibana and create dashboard to analyze the data by accessing the [kibana main page](http://localhost:5601). 
+
+## [Results](#results)
+### [Chatbot Response](#chatbotResponse)
+The following is a response example from the chatbot, based on the prompt described above
+<p align="center">
+  <img src="logos/chatbot-response" alt="Chatbot Response" title="Chatbot Response" height=400>
+</p>
+As we can see, we are able to visualize both the prompt and the answer.
+
+### [Sentiment Analysis](#sentiment)
+We've constructed two dashboards in Kibana, the first one represents the sentiment analysis. This was computed using the python package **text_blob**. The first kind of plot is a pie chart containing the percentages of the sentiment like the following:
+<p align="center">
+  <img src="logos/pie.png" alt="Pie sentiment" title="Pie" height="400">
+</p>
+The second plot is an heatmap that describes the polarities of the companies
+<p align="center">
+  <img src="logos/heatmap.png" alt="Heatmap sentiment" title="Heatmap" height="400">
+</p>
+
+### [Word Cloud](#wordCloud)
+We also defined a word cloud so that we are able to see the most used words in the reviews and gain usefule insights. The following is an example for Fastweb:
+<p align="center">
+  <img src="logos/wordcloud.jpg" alt="LLM Representation" title="LLM" height="400">
+</p>
+
+## License
+
+Indeed scraping for chatbot interaction is available under the MIT [license](https://github.com/Meguazy/Review-scraper-chatbot-embedding/blob/main/LICENSE)
+
+## Contact Information
+
+| Contact | Mail |
+| --- | --- |
+| Francesco Finucci | francesco.finucci@studenti.unicam.it |
+| Andrea Palmieri   | andrea03.palmieri@studenti.unicam.it |
