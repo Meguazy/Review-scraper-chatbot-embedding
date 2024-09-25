@@ -124,7 +124,9 @@ Before taking a look at the scraper, we first need to start the two consumers. T
 chmod +x codeKafka/submit.sh
 bash codeKafka/submit.sh
 ```
-while in the second terminal, run the command
+We can then go on the [Spark main page](http://localhost:4040/jobs/) to monitor the job's execution.
+
+In the second terminal, run the command
 ```bash
 python codeKafka/consumer_elastic.py
 ```
