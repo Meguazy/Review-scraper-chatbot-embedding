@@ -148,7 +148,7 @@ Finally, the user can access the indexes with Elastic and Kibana and create dash
 ### [Chatbot Response](#chatbotResponse)
 The following is a response example from the chatbot, based on the prompt described above
 <p align="center">
-  <img src="logos/chatbot-response" alt="Chatbot Response" title="Chatbot Response" height=400>
+  <img src="logos/chatbot-response.png" alt="Chatbot Response" title="Chatbot Response" height=400>
 </p>
 As we can see, we are able to visualize both the prompt and the answer.
 
@@ -165,7 +165,7 @@ The second plot is an heatmap that describes the polarities of the companies
 ### [Word Cloud](#wordCloud)
 We also defined a word cloud so that we are able to see the most used words in the reviews and gain usefule insights. The following is an example for Fastweb:
 <p align="center">
-  <img src="logos/wordcloud.jpg" alt="LLM Representation" title="LLM" height="400">
+  <img src="logos/wordcloud.png" alt="LLM Representation" title="LLM" height="400">
 </p>
 
 ## License
