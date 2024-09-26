@@ -14,16 +14,16 @@ logger.setLevel(logging.INFO)  # Set the logging level
 
 multiprocessing.set_start_method('fork', force=True)
 
-embedding_dao = EmbeddingDao()
-# Get the collection for the embeddings
-collection = embedding_dao.get_or_create_collection("reviews")
-
 # Initialize Spark Session
 spark = SparkSession.builder \
     .appName("KafkaSparkEmbeddings") \
     .getOrCreate()
     
 spark.sparkContext.setLogLevel("ERROR")
+
+# Get the collection for the embeddings
+embedding_dao = EmbeddingDao()
+collection = embedding_dao.get_or_create_collection("reviews")
 
 # Factory function to create an instance of TextEmbedder
 def get_text_embedder():
@@ -34,7 +34,7 @@ def get_text_embedder():
 # UDF that uses the TextEmbedder instance
 @udf(ArrayType(FloatType()))
 def compute_embedding(review_body):
-    text_embedder = get_text_embedder()  # Create a new instance for each call
+    text_embedder = get_text_embedder()
     return text_embedder.embed(review_body)
 
 # Read from Kafka

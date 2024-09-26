@@ -1,9 +1,6 @@
 import chromadb
-
 from chromadb import Collection
-from chromadb.config import Settings
 from dao.IDao import IDao
-
 
 class EmbeddingDao(IDao):
     def __init__(self):
@@ -12,7 +9,6 @@ class EmbeddingDao(IDao):
         """
         # Connect with no authentication
         self.client = chromadb.HttpClient(host='localhost', port=8800,)
-
 
     def get_or_create_collection(self, collection_name):
         """
