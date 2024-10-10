@@ -8,3 +8,4 @@ indeed_r*
 page_content.txt
 requirements2.txt
 .DS_Store
+.env
