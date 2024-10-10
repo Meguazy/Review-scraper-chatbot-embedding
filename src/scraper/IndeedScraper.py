@@ -75,7 +75,7 @@ class IndeedScraper():
                         review = reviews[j]
                         review_title = review.find_element(By.CSS_SELECTOR, "h2.css-rv2ti0.e1tiznh50 span.css-15r9gu1.eu4oa1w0").text
                         review_body = review.find_element(By.CSS_SELECTOR, "div.css-hxk5yu.eu4oa1w0").text
-                        review_score = review.find_element(By.CSS_SELECTOR, "button.css-szf5tt.e1wnkr790").text
+                        review_score = review.find_element(By.CSS_SELECTOR, '[itemprop="ratingValue"]').get_attribute("content")
 
                         review_dict = {
                             'company_name': str(url).split('/')[-2],
